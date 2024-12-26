@@ -1,0 +1,49 @@
+Analyze the following image of an invoice and extract key details accurately.
+Pay special attention to the table columns and ensure that the values match the correct fields.
+Read both arabic and english data and compare between them to extract the most accurate data.
+
+
+### Instructions for Table Extraction:
+1. The table has specific columns with Arabic headers. These columns must be mapped as follows:
+   - "رقم الصنف" = id (Item ID).
+   - "اسم الصنف" = item_description_arabic (Arabic description).
+   - Use any corresponding English description, if present, for item_description_english.
+   - "الكمية" = quantity (Quantity of the item).
+   - "السعر" = unit_price (Price per unit).
+   - "الخصم" = discount (Any discount applied to the item).
+   - "المجموع" = total_price (Total price without tax).
+   - "نسبة الضريبة" = tax_percentage_per_item (Tax percentage).
+   - "المجموع الأساسي" = total_price_with_tax (Total price including tax).
+2. Extract **only** the numeric value under "الكمية" for the **quantity** field. Do not confuse it with "المجموع" or other columns.
+
+
+### Output Requirements:
+Please respond only in JSON format, without additional explanations or notes.
+The JSON object should include the following fields:
+
+    "invoice_number": The invoice number from the document.
+    "invoice_date": The date the invoice was issued.
+    "currency": The currency used in the invoice.
+    "payment_terms": The payment terms specified on the invoice.
+    "supplier_name": Name of the company or person who issued the invoice.
+    "supplier_address": Address of the supplier, if available.
+    "supplier_vat": Supplier VAT number or tax number.
+    "customer_name": Name of the person or organization being billed.
+    "customer_address": Address of the customer, if available.
+    "customer_vat": Customer VAT number or tax number.
+    "line_items": A list of items being billed, where each item includes:
+        "id": Item ID or Item No.
+        "item_description_arabic": Item name or description in Arabic.
+        "item_description_english": Item name or description in English.
+        "quantity": Quantity of the item.
+        "uom": Unit of Measure.
+        "unit_price": Price per unit.
+        "total_price": Total price for the item.
+        "tax_percentage_per_item": Percentage of tax applied to the item, if specified.
+        "total_price_with_tax": Total price for the item after tax.
+    "subtotal": Subtotal amount for all line items before tax.
+    "tax": Amount of tax applied to the subtotal, if specified.
+    "total_amount_due": The total amount due on the invoice.
+
+
+Return only a complete JSON object with these fields filled out based on the data in the invoice image.

@@ -30,7 +30,7 @@ ALLOWED_MIME_TYPES = {
 }
 
 ALLOWED_INVOICE_TYPES = {
-    "Al-Drsoni", "Al-Othman", "Al-Ifari", "Almarai", "AlsafiDanone", "sadafco"
+    "Al-Drsoni", "Al-Othman", "Al-Ifari", "Almarai", "AlsafiDanone", "sadafco", "GlobalAr", "GlobalEn"
 }
 
 def allowed_file(filename: str) -> bool:
@@ -55,7 +55,7 @@ class InvoiceRequest(BaseModel):
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World..."}  
+    return {"message": "Hello World...mohammed!"}  
 
 @app.post("/process_invoice")
 async def process_invoice(request: InvoiceRequest):
